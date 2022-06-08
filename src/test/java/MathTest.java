@@ -1,5 +1,7 @@
-import org.junit.Assert;
-import org.junit.Test;
+
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import static resources.Mathematic.NewSumOfManyInt;
 import static resources.Mathematic.SumOfManyInt;
@@ -24,7 +26,7 @@ public class MathTest {
         int[] question1 = {1,2,3,4,5,5,6,7,8,9}; //создаю массив 1
         int result1 = SumOfManyInt(question1); //применяю метод
         System.out.println(result1);//вывожу число
-        Assert.assertEquals(50, result1);//проверка результата
+        Assertions.assertEquals(50, result1);//проверка результата
     }
 
     @Test
@@ -32,6 +34,6 @@ public class MathTest {
         int[] question2 = {1,1,1,1,1}; //создаю массив 2
         int result2 = NewSumOfManyInt(question2); //применяю второй метод
         System.out.println(result2);//вывожу число
-        Assert.assertEquals(5, result2);//проверка результата
+        Assertions.assertEquals(5, result2);//проверка результата
     }
 }
