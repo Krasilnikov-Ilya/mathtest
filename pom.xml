@@ -6,66 +6,55 @@
 
     <groupId>org.example</groupId>
     <artifactId>mathematics</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0-SIMPLIFY</version>
+
+    <!-- Я создал ветки так как считаю необходимым разделить направления работы -->
+    <!-- Основное - ветка simplify, это план-минимум: JUnit5 + maven-surefire -->
+    <!-- То, что не просили - ветка extend, в ней функционал фреймворка будет расширяться -->
 
     <properties>
-        <maven.compiler.source>18</maven.compiler.source>
-        <maven.compiler.target>18</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <junit-jupiter-api.version>5.0.2</junit-jupiter-api.version>
-        <junit-platform.version>1.0.2</junit-platform.version>
+        <!--так же интересует чем руководствоваться при выборе версий-->
+        <!--свежими сочетаниями версий из примеров в документации с junit.org-->
+        <junit-jupiter.version>5.8.2</junit-jupiter.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <!-- или есть лучший путь получить конфиг? -->
+        <!-- у меня на примете есть только Test Automation Gear репозиторий https://github.com/sbtqa -->
 
-        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
     </properties>
 
     <dependencies>
+        <!-- The JUnitPlatform runner has been deprecated, свою ошибку я понял-->
         <dependency>
+            <!-- В целом - очень рад, что все куда проще, чем мне казалось -->
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit-jupiter-api.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-surefire-provider</artifactId>
-            <version>${junit-platform.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>${junit-platform.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit-jupiter-api.version}</version>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    <!-- Наверно, в данном контексте уместно будет сделать отсылку к секретному ингредиенту лапши -->
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.platform</groupId>
-                        <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>${junit-platform.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>${junit-jupiter-api.version}</version>
-                    </dependency>
-                </dependencies>
+                <!-- По опыту работы с TestNG я знаком с использованием suite.xml -->
+                <!-- С JUnit у меня по этой области пробел в знаниях -->
+                <!-- Суть вопроса: как лучше ограничивать круг поиска тестов? -->
+                <!--configuration>
+                    <groups>acceptance | !feature-a</groups>
+                    <excludedGroups>integration, regression</excludedGroups>
+                </configuration-->
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
             </plugin>
         </plugins>
     </build>
-
 </project>
