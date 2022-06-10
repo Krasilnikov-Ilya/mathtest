@@ -6,54 +6,63 @@
 
     <groupId>org.example</groupId>
     <artifactId>mathematics</artifactId>
-    <version>1.0-SIMPLIFY</version>
+    <version>1.0-EXTEND</version>
 
     <!-- Я создал ветки так как считаю необходимым разделить направления работы -->
     <!-- Основное - ветка simplify, это план-минимум: JUnit5 + maven-surefire -->
     <!-- То, что не просили - ветка extend, в ней функционал фреймворка будет расширяться -->
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <!--так же интересует чем руководствоваться при выборе версий-->
-        <!--свежими сочетаниями версий из примеров в документации с junit.org-->
+        <maven.compiler.source>18</maven.compiler.source>
+        <maven.compiler.target>18</maven.compiler.target>
         <junit-jupiter.version>5.8.2</junit-jupiter.version>
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <!-- или есть лучший путь получить конфиг? -->
-        <!-- у меня на примете есть только Test Automation Gear репозиторий https://github.com/sbtqa -->
-
+        <aspectj.version>1.8.10</aspectj.version>
+        <allure-junit5.version>2.17.3</allure-junit5.version>
     </properties>
 
     <dependencies>
-        <!-- The JUnitPlatform runner has been deprecated, свою ошибку я понял-->
         <dependency>
-            <!-- В целом - очень рад, что все куда проще, чем мне казалось -->
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-junit5</artifactId>
+            <version>${allure-junit5.version}</version>
+        </dependency>
     </dependencies>
-    <!-- Наверно, в данном контексте уместно будет сделать отсылку к секретному ингредиенту лапши -->
+
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
-                <!-- По опыту работы с TestNG я знаком с использованием suite.xml -->
-                <!-- С JUnit у меня по этой области пробел в знаниях -->
-                <!-- Суть вопроса: как лучше ограничивать круг поиска тестов? -->
-                <!--configuration>
-                    <groups>acceptance | !feature-a</groups>
-                    <excludedGroups>integration, regression</excludedGroups>
-                </configuration-->
+                <configuration>
+                    <testFailureIgnore>false</testFailureIgnore>
+                    <argLine>
+                        -Dfile.encoding=UTF-8
+                        -javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+                    </argLine>
+                    <systemPropertyVariables>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                        <junit.jupiter.extensions.autodetection.enabled>true</junit.jupiter.extensions.autodetection.enabled>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.10.0</version>
+                <configuration>
+                    <reportVersion>${allure-junit5.version}</reportVersion>
+                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
+                </configuration>
             </plugin>
         </plugins>
     </build>
