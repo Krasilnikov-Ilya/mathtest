@@ -8,35 +8,39 @@ package resources.models;
 public class User {
     // объявляю переменные для модели пользователя
     private int id;
-    private String email;
-    private String first_name;
-    private String last_name;
-    private String avatar;
+    private String firstName;
+    private String secondName;
+    private int age;
+    private String sex;
+    private double money;
 
     // создаю модель "пользователь"
-    public User(int id, String email,
-                String first_name,
-                String last_name, String avatar) {
+    public User(int id, String firstName,
+                String secondName, int age,
+                String sex, double money) {
         this.id = id;
-        this.email = email;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.avatar = avatar;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.age = age;
+        this.sex = sex;
+        this.money = money;
     }
 
     // здесь будет набор методов получения переменных
     // специально пишу в линию, иначе плохо читается
     public int getId() {return id;}
-    public String getEmail() {return email;}
-    public String getFirst_name() {return first_name;}
-    public String getLast_name() {return last_name;}
-    public String getAvatar() {return avatar;}
+    public String getFirstName() {return firstName;}
+    public String getSecondName() {return secondName;}
+    public int getAge() {return age;}
+    public String getSex() {return sex;} // смешно
+    public double getMoney() {return money;}
 
     // здесь будет метод для вывода пользователя в String формате
     @Override // без переопределения снова не обошлось
     public String toString() {
         // я трачу больше времени на долбежку по клавиатуре, чем на реальную работу :(
         // P.S.: знаю, сам виноват.
-        return "\n" + "User { id:" + id + " email: " + email + " first_name: " + first_name + " last_name: " + last_name + "\n" + " avatar_link: " + avatar + " }";
+        return "\n" + "User { id:" + id + " firstName: " + firstName + " secondName: " + secondName + "\n"
+                + " age: " + age + " sex: " + sex + " money: " + money + " }";
     }
 }

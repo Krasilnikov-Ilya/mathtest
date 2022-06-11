@@ -1,25 +1,31 @@
 package resources;
 
 import com.google.gson.Gson;
-import resources.models.UsersPageRoot;
+import com.google.gson.reflect.TypeToken;
+import resources.models.User;
 
 import java.io.FileReader;
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * Итак, в ответе есть массив, в массиве есть пользователи.
  * Надо конвертировать.
+ *
+ * Пришлось переделать: раньше я корневую часть массива, теперь - список.
  */
 
 
 public class GsonParser {
     // говорю, что буду получать
     // в данном случае - первый по вложенности участок массива
-    public UsersPageRoot parse() {
+    public List<User> parse() {
         Gson gson = new Gson(); // подтягиваю расширение
 
-        try(FileReader reader = new FileReader("src/main/resources/userspage2.json")) { // в try заключаю ридер файла
+        try(FileReader reader = new FileReader("src/main/resources/perfuserspage.json")) { // в try заключаю ридер файла
             // читаю первый уровень массива
-            UsersPageRoot usersPageRoot = gson.fromJson(reader, UsersPageRoot.class);
+            Type listType = new TypeToken<List<User>>(){}.getType();
+            List<User> usersPageRoot = gson.fromJson(reader, listType);
             // возвращаю первый уровень массива
             return usersPageRoot;
         }
