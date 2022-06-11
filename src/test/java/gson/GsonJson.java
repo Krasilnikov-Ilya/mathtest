@@ -1,27 +1,23 @@
 package gson;
 
 import resources.GsonParser;
+import resources.models.User;
 import resources.models.UsersPageRoot;
 
+import java.util.List;
+
 /**
- * Я не смог удержаться от исследования Gson
- * Незакрытый гештальт в виде дополнительного задания не давал мне покоя.
- * Вижу Json - начинаю парсить, ничего с собой поделать не могу.
- * Давай будем считать, что это мой академический долг:
- * выполнить дополнительное задание, на которое я положил ранее из-за сроков
+ * Пришлось переделать модели и методы, а так же возвращать объект List<User>
+ * Но в целом - с одномерным массивом всё равно проще
  */
 
 public class GsonJson { // пять строк кода, пять часов страданий.
     public static void main(String[] args) {
         GsonParser parser = new GsonParser(); // объявляю парсер
-        UsersPageRoot usersPageRoot = parser.parse(); // использую парсер на Json
+        List<User> usersPageRoot = parser.parse(); // использую парсер на Json
         System.out.println(usersPageRoot.toString()); // вывожу в консоль содержимое
 
-        /*
-        Так как сайт содержит несколько страниц пользователей,
-        можно получить например первую, создать второй файл и так же его вывести.
-        Я работал со второй, мне она как родная после работы с Postman.
-         */
+
 
 
     }
