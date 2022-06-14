@@ -29,14 +29,6 @@
             <artifactId>httpclient5</artifactId>
             <version>5.1.3</version>
         </dependency>
-
-        <!-- В org.apache в quick start было написано, что нужно. Доверюсь официальной документации. -->
-        <!-- Что бы можно было подтянуть. Но пока надо закомментить -->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.httpcomponents</groupId>-->
-<!--            <artifactId>fluent-hc</artifactId>-->
-<!--            <version>4.5.13</version>-->
-<!--        </dependency>-->
         <!-- Сдружимся с Json -->
         <dependency>
             <groupId>com.google.code.gson</groupId>

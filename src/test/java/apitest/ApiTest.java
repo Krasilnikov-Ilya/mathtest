@@ -1,62 +1,40 @@
 package apitest;
 
-import org.apache.hc.client5.http.classic.methods.HttpGet;
-import org.apache.hc.client5.http.classic.methods.HttpUriRequest;
+import apachehttpclient5.ApacheHttp5;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ClassicHttpRequest;
+
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
+import org.apache.hc.core5.http.ProtocolException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.*;
 
 /**
- * Я этот код просто выстрадал, потому что разница между HTTPClient5 и HTTPClient4 весьма существенна.
- * В частности - билдер теперь не один, а HttpUriRequest больше не используется.
- * Как следствие - приходится работать без гайдов "для тупых", а у меня с этим плохо.
+ * Очень надеюсь, что тебя устроит как я тут прибрался.
  */
 
 public class ApiTest {
-    public static void main(final String[] args) throws Exception { // главный метод, перехват ошибки
-        try (final CloseableHttpClient httpclient = HttpClients.createDefault()) { // объявляю клиент
-            // Создаю объект "билдер запросов" и сразу обозначаю метод
-            ClassicRequestBuilder reqbuilder = ClassicRequestBuilder.get(); // На четвёртом клиенте всё проще
-            // Заполняю URL
-            ClassicRequestBuilder reqbuilder1 = reqbuilder.setUri("http://77.50.236.203:4880/users");
-            // Добавляю хедер с типом контента. Я так понимаю, это для опыта, ведь Json приходит и без него.
-            ClassicRequestBuilder reqbuilder2 = reqbuilder1.addHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-            // Созданию запрос используя билдер
-            ClassicHttpRequest httpGet = reqbuilder2.build();
-            try (final CloseableHttpResponse response1 = httpclient.execute(httpGet)) { // объявляю ответ
-                System.out.println(response1.getCode() + " " + response1.getReasonPhrase()); // вывод кода ответа сервера
-                final HttpEntity entity1 = response1.getEntity(); // объявляю содержимое ответа
-                System.out.println(entity1.toString()); // вывожу информацию о содержимом
-                System.out.println(entity1.getContentType()); // другим способом смотрю, что внутри Json
-                String fileName = "src/main/resources/perfuserspage.json"; // придумываю ему название и место
-                FileOutputStream out = new FileOutputStream(fileName); // объявляю поток для записи
-                entity1.writeTo(out); // записываю Json
-                EntityUtils.consume(entity1); // вообще не понял что это, надеюсь, объяснишь
-            }
+    @Test
+    public void usersTest() throws IOException, ProtocolException {
+        CloseableHttpClient client = ApacheHttp5.createClient(); // создание клиента
+        ClassicHttpRequest getUsersJson = ApacheHttp5.createGetWithHeader(); // создание запроса
+        CloseableHttpResponse response = client.execute(getUsersJson); // объявление и инициализация ответа
+        /*
+        * дальше будет несколько проверок, это нормально?
+        * я посчитал, что проверка ответа, хедера и существования содержимого
+        * это минимальный набор для такой задачи.
+         */
+        Assertions.assertEquals(200, response.getCode()); // проверка на код ответа
+        Assertions.assertEquals("Content-Type: application/json",
+                response.getHeader(HttpHeaders.CONTENT_TYPE).toString());// проверка хедера ответа
+        HttpEntity entity = response.getEntity(); // объявление и инициализация содержимого
+        Assertions.assertNotNull(entity); // проверка существования содержимого
+        client.close(); // закрытие клиента
 
-            /*
-            final HttpPost httpPost = new HttpPost("http://httpbin.org/post"); // пусть лежит на будущее
-            final List<NameValuePair> nvps = new ArrayList<>();
-            nvps.add(new BasicNameValuePair("username", "vip"));
-            nvps.add(new BasicNameValuePair("password", "secret"));
-            httpPost.setEntity(new UrlEncodedFormEntity(nvps));
-
-            try (final CloseableHttpResponse response2 = httpclient.execute(httpPost)) {
-                System.out.println(response2.getCode() + " " + response2.getReasonPhrase());
-                final HttpEntity entity2 = response2.getEntity();
-                // do something useful with the response body
-                // and ensure it is fully consumed
-                EntityUtils.consume(entity2);
-            }
-             */
-        }
     }
 
 }
