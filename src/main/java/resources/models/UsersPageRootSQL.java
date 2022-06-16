@@ -4,17 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Итак, содержимое Json нужно будет переводить в объектную модель
- * Модель для страницы списка пользователей представлена в этом классе
- * Она использует модель пользователя, лежащую так же в папке ресурсов
- *
- * После смены сайта Serialized Name уже не нужен, ведь названия у массива нет
- * Но пусть будет, на память.
- */
-
-// модель Json из ответа
-public class UsersPageRootAPI {
+public class UsersPageRootSQL {
     // список из моделей пользователей
     @SerializedName("data") // назван этот массив в массиве как "data"
     private List<User> user; // но я хочу что бы код читался.
@@ -29,10 +19,4 @@ public class UsersPageRootAPI {
     public String toString() {
         return "Users page: users_array: " + user + "\n" + "}";
     }
-
-
-
-
-
-
 }
