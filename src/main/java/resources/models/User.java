@@ -5,7 +5,7 @@ package resources.models;
  * из одномерного массива, который выдается ответом сайта.
  */
 
-public class UserAPI {
+public class User {
     // объявляю переменные для модели пользователя
     private int id;
     private String firstName;
@@ -15,9 +15,9 @@ public class UserAPI {
     private double money;
 
     // создаю модель "пользователь"
-    public UserAPI(int id, String firstName,
-                   String secondName, int age,
-                   String sex, double money) {
+    public User(int id, String firstName,
+                String secondName, int age,
+                String sex, double money) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -38,8 +38,6 @@ public class UserAPI {
     // здесь будет метод для вывода пользователя в String формате
     @Override // без переопределения снова не обошлось
     public String toString() {
-        // я трачу больше времени на долбежку по клавиатуре, чем на реальную работу :(
-        // P.S.: знаю, сам виноват.
         return "\n" + "User { id:" + id + " firstName: " + firstName + " secondName: " + secondName + "\n"
                 + " age: " + age + " sex: " + sex + " money: " + money + " }";
     }

@@ -1,9 +1,16 @@
+package JDBC;
+
+import com.google.gson.reflect.TypeToken;
+import resources.models.User;
+
+import java.lang.reflect.Type;
 import java.sql.*;
+import java.util.*;
 import java.util.logging.*;
 
-public class JDBCTest {
+public class JDBCRecorder {
 
-    public static void main(String[] args) {
+    public static List<User> recordListFromJDBC() {
         // заранее инициализирую соединение
         Connection connection = null;
         // параметры для подключения
@@ -23,23 +30,32 @@ public class JDBCTest {
                     "SELECT * FROM person");
             //result это указатель на первую строку с выборки
             //метод next() переходит к следующему элементу в выборке
-            System.out.println("Showing statement");
+            //System.out.println("Recording statement");
+            List<User> usersPageRootSQL = new ArrayList<>();
             while (result1.next()) {
-                System.out.println("id = " + result1.getInt("id")
-                        + " first_name = " + result1.getString("first_name") + " second_name = " +  result1.getString("second_name")
-                        + " money = " + result1.getDouble("money") + " age = " + result1.getInt("age") + " sex = " + (result1.getBoolean("sex")? "Male" : "Female"));
+                User user = new User(result1.getInt("id"), result1.getString("first_name"),result1.getString("second_name"),
+                        result1.getInt("age"),(result1.getBoolean("sex") ? "MALE" : "FEMALE"),result1.getDouble("money"));
+                usersPageRootSQL.add(user);
+                //System.out.println(user.toString());
             }
+            //System.out.println(usersPageRootSQL.toString());
+            return usersPageRootSQL;
+
+
+
         } catch (Exception ex) {
             //выводим наиболее значимые сообщения
-            Logger.getLogger(JDBCTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JDBCRecorder.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(JDBCTest.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(JDBCRecorder.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
+        return null;
     }
 }
+
