@@ -14,20 +14,20 @@ import java.util.List;
  */
 
 // модель Json из ответа
-public class UsersPageRoot {
+public class UsersPageRootAPI {
     // список из моделей пользователей
     @SerializedName("data") // назван этот массив в массиве как "data"
-    private List<User> user; // но я хочу что бы код читался.
+    private List<UserAPI> userAPI; // но я хочу что бы код читался.
 
     // методы для получения значений из Json
-    public List<User> getUsersList() {return user;}
+    public List<UserAPI> getUsersList() {return userAPI;}
 
     // методы для внесения значений из Json
-    public void setUsersList(List<User> user) {this.user = user;}
+    public void setUsersList(List<UserAPI> userAPI) {this.userAPI = userAPI;}
 
     @Override // обычный toString тут не катит, делаю кастомный
     public String toString() {
-        return "Users page: users_array: " + user + "\n" + "}";
+        return "Users page: users_array: " + userAPI + "\n" + "}";
     }
 
 

@@ -5,7 +5,7 @@ package resources.models;
  * из одномерного массива, который выдается ответом сайта.
  */
 
-public class User {
+public class UserAPI {
     // объявляю переменные для модели пользователя
     private int id;
     private String firstName;
@@ -15,9 +15,9 @@ public class User {
     private double money;
 
     // создаю модель "пользователь"
-    public User(int id, String firstName,
-                String secondName, int age,
-                String sex, double money) {
+    public UserAPI(int id, String firstName,
+                   String secondName, int age,
+                   String sex, double money) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
