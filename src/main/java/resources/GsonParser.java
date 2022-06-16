@@ -2,7 +2,7 @@ package resources;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import resources.models.User;
+import resources.models.UserAPI;
 
 import java.io.FileReader;
 import java.lang.reflect.Type;
@@ -19,15 +19,16 @@ import java.util.List;
 public class GsonParser {
     // говорю, что буду получать
     // в данном случае - первый по вложенности участок массива
-    public List<User> parse() {
+    public static List<UserAPI> parse() {
         Gson gson = new Gson(); // подтягиваю расширение
 
         try(FileReader reader = new FileReader("src/main/resources/perfuserspage.json")) { // в try заключаю ридер файла
             // читаю первый уровень массива
-            Type listType = new TypeToken<List<User>>(){}.getType();
-            List<User> usersPageRoot = gson.fromJson(reader, listType);
+            Type listType = new TypeToken<List<UserAPI>>(){}.getType();
+            List<UserAPI> usersPageRootAPI = gson.fromJson(reader, listType);
+            System.out.println(usersPageRootAPI.toString());
             // возвращаю первый уровень массива
-            return usersPageRoot;
+            return usersPageRootAPI;
         }
         catch (Exception e) { // обрабатываю исключения
             System.out.println("Parsing error" + e.toString());

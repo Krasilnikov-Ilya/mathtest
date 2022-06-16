@@ -1,8 +1,7 @@
 package gson;
 
 import resources.GsonParser;
-import resources.models.User;
-import resources.models.UsersPageRoot;
+import resources.models.UserAPI;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 public class GsonJson { // пять строк кода, пять часов страданий.
     public static void main(String[] args) {
         GsonParser parser = new GsonParser(); // объявляю парсер
-        List<User> usersPageRoot = parser.parse(); // использую парсер на Json
+        List<UserAPI> usersPageRoot = parser.parse(); // использую парсер на Json
         System.out.println(usersPageRoot.toString()); // вывожу в консоль содержимое
 
 
