@@ -14,10 +14,6 @@ import models.User;
 import java.io.*;
 import java.util.List;
 
-/**
- * Очень надеюсь, что тебя устроит как я тут прибрался.
- */
-
 class ApiTest {
     @Test
     public void usersTest() throws IOException, ProtocolException {
