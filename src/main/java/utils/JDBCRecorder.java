@@ -1,9 +1,7 @@
-package JDBC;
+package utils;
 
-import com.google.gson.reflect.TypeToken;
-import resources.models.User;
+import models.User;
 
-import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.*;
