@@ -3,72 +3,34 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.javabydeveloper.allure</groupId>
-    <artifactId>junit5-allure-report-example</artifactId>
-    <version>1.0-SNAPSHOT</version>
 
-    <!--Я много раз начинал сначала, так как совместимость версий - источник страшной головной боли-->
-    <!--Было очень много проблем с поиском рабочего стака версий для junit 5.0.2-->
-    <!--От них я ушел перейдя на 5.5.2, ибо много где пишут что версия удачная-->
-    <!--Так же было очень много проблем с объявлением папок отчётов-->
-    <!--Все, что я писал в allure.properties игнорировалось. Спасла частичная кража кода чужого POMника -->
-    <!--Были попытки смотреть индусов, но их английский не воспринимается ни мною, ни ютубом-->
-    <!--Версии набраны с репозитория у испанского ютубера, что вёл курс по Spring Boot-->
-    <!--Настройки maven-surefire-plugin взяты оттуда же https://github.com/luizgustavocosta/junit-5-how-to -->
-    <!--Я уверен на 99 процентов, что мой POMник нужно чистить и обдумывать, очень надеюсь на объективную критику-->
-    <!--Или на совет где и как искать исходники под конкретные задачи-->
+    <groupId>org.example</groupId>
+    <artifactId>example</artifactId>
+    <version>1.0-EXAMPLE</version>
 
     <properties>
-        <!--Encoding and Java version-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <aspectj.version>1.9.4</aspectj.version>
-
-        <!--Junit and Surefire versions-->
-        <junit.jupiter.version>5.5.2</junit.jupiter.version>
-        <junit.platform.version>1.6.2</junit.platform.version>
-        <junit.platform.surefire.provider.version>1.1.0</junit.platform.surefire.provider.version>
-        <junit.maven.surefire.plugin.version>2.19.1</junit.maven.surefire.plugin.version>
-
-        <!--Maven Plugins and Allure-->
-        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
-        <allure.maven.version>2.10.0</allure.maven.version>
-        <allure.version>2.13.6</allure.version>
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
-
+        <junit-jupiter.version>5.8.2</junit-jupiter.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <aspectj.version>1.8.10</aspectj.version>
+        <allure-junit5.version>2.17.3</allure-junit5.version>
+        <allure-maven.version>2.10.0</allure-maven.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.jupiter.version}</version>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit-jupiter.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-surefire-provider</artifactId>
-            <version>${junit.platform.surefire.provider.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>${junit.platform.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
-            <version>${allure.version}</version>
+            <version>${allure-junit5.version}</version>
         </dependency>
     </dependencies>
 
@@ -77,12 +39,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${junit.maven.surefire.plugin.version}</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <includes>
-                        <include>**Test**.java</include>
-                        <include>**Should.java</include>
-                    </includes>
                     <testFailureIgnore>false</testFailureIgnore>
                     <argLine>
                         -Dfile.encoding=UTF-8
@@ -91,34 +49,15 @@
                     <systemPropertyVariables>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                         <junit.jupiter.extensions.autodetection.enabled>true</junit.jupiter.extensions.autodetection.enabled>
-                        <junit.jupiter.execution.parallel.enabled>true</junit.jupiter.execution.parallel.enabled>
-                        <junit.jupiter.execution.parallel.config.strategy>dynamic</junit.jupiter.execution.parallel.config.strategy>
                     </systemPropertyVariables>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.platform</groupId>
-                        <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>${junit.platform.surefire.provider.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>${junit.jupiter.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                        <version>${aspectj.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>${allure.maven.version}</version>
+                <version>${allure-maven.version}</version>
                 <configuration>
-                    <reportVersion>${allure.version}</reportVersion>
+                    <reportVersion>${allure-junit5.version}</reportVersion>
                     <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
                 </configuration>
             </plugin>
