@@ -1,4 +1,6 @@
-package resources.models;
+package models;
+
+import java.util.Objects;
 
 /**
  * И всё это только для того, что бы сделать список пользователей
@@ -40,5 +42,18 @@ public class User {
     public String toString() {
         return "\n" + "User { id:" + id + " firstName: " + firstName + " secondName: " + secondName + "\n"
                 + " age: " + age + " sex: " + sex + " money: " + money + " }";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && age == user.age && Double.compare(user.money, money) == 0 && Objects.equals(firstName, user.firstName) && Objects.equals(secondName, user.secondName) && Objects.equals(sex, user.sex);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, secondName, age, sex, money);
     }
 }

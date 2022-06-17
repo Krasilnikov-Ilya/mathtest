@@ -1,26 +1,21 @@
 package apitest;
 
-import JDBC.JDBCRecorder;
-import apachehttpclient5.ApacheHttp5;
-import apachehttpclient5.JsonRecorder;
+import utils.JDBCRecorder;
+import utils.ApacheHttp5;
+import utils.JsonRecorder;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.core5.http.ClassicHttpRequest;
-
 import org.apache.hc.core5.http.HttpEntity;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.ProtocolException;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import resources.GsonParser;
-import resources.models.UsersPageRootAPI;
-import resources.models.UsersPageRootSQL;
+import utils.GsonParser;
+import models.User;
+
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,25 +36,14 @@ public class ApiTest {
         Assertions.assertNotNull(entity); // проверка существования содержимого
         client.close(); // закрытие клиента
     }
-    @Test
-    public void jsonTest() throws IOException {
-        JsonRecorder.saveJson();
-        Object usersPageRootAPI = GsonParser.parse();
-        Assertions.assertNotNull(usersPageRootAPI);
-    }
-
-
-    @Test
-    public void sqlTest() {
-        Object usersPageRootSQL = JDBCRecorder.recordListFromJDBC();
-        Assertions.assertNotNull(usersPageRootSQL);
-    }
 
     @Test
     public void apiAndSqlTest() throws IOException {
         JsonRecorder.saveJson();
-        Object usersPageRootAPI = GsonParser.parse();
-        Object usersPageRootSQL = JDBCRecorder.recordListFromJDBC();
-        Assertions.assertEquals(usersPageRootAPI.toString(), usersPageRootSQL.toString());
+        List<User> usersPageRootAPI = GsonParser.parse();
+        List<User> usersPageRootSQL = JDBCRecorder.recordListFromJDBC();
+        Assertions.assertEquals(usersPageRootAPI.size(), usersPageRootSQL.size());
+        Assertions.assertTrue(usersPageRootAPI.containsAll(usersPageRootSQL));
+        Assertions.assertTrue(usersPageRootSQL.containsAll(usersPageRootAPI));
     }
 }

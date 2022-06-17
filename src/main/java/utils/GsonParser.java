@@ -1,8 +1,8 @@
-package resources;
+package utils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import resources.models.User;
+import models.User;
 
 import java.io.FileReader;
 import java.lang.reflect.Type;
