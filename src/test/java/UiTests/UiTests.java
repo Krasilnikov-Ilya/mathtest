@@ -1,6 +1,7 @@
 package UiTests;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
@@ -9,22 +10,19 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class UiTests {
 
-    /**
-     * К "ванильному" селениуму я больше возвращаться по своей воле точно не буду.
-     * Selenide просто шикарен. Вообще, я почувствовал себя динозавром, который нормальных фреймворков не видел.
-     * Я поначалу хотел поработать с Xpath, но побоялся, что создание @FindBy Xpath "" сделает тест только хуже.
-     * CSS принимаются без аннотаций, к тому же используются не больше одного раза.
-     */
-
-    private static final String PERFOMANCE_LAB_URL = "https://www.performance-lab.ru/";
+    private static final String PERFORMANCE_LAB_URL = "https://www.performance-lab.ru/";
     private static final String GOOGLE_URL = "https://google.com";
 
     @Test
     void findAndEnterSiteThroughGoogleTest() {
         open(GOOGLE_URL);
+        // у performance-lab.ru сейчас не лучшая производительность
+        // вообще, 60 может быть лишнего, потому что раз 30 приходит сообщение
+        // Timed out receiving message from renderer: 30.000
+        Configuration.timeout=60000;
         $("[class='gLFyf gsfi']")
                 .shouldBe(Condition.visible)
-                .sendKeys("Perfomance Lab" + Keys.ENTER);
+                .sendKeys("Performance Lab" + Keys.ENTER);
 
         $("[class='tF2Cxc']>div>a")
                 .shouldBe(Condition.visible)
@@ -38,10 +36,11 @@ public class UiTests {
 
     @Test
     void siteTestingPriceColorTest() {
-        open(PERFOMANCE_LAB_URL);
+        open(PERFORMANCE_LAB_URL);
+        Configuration.timeout=60000;
         $("[id='menu-item-317']")
                 .shouldBe(Condition.visible)
-                .hover(); // вообще кайф
+                .hover();
         $("[class='container']>*>*>[class*='menu-item-8248']>a")
                 .shouldBe(Condition.visible)
                 .click();
@@ -52,15 +51,14 @@ public class UiTests {
         switchTo().window(0);
 
         $("[data-id='5d071489'] [class*='elementor-button-link']")
-                .scrollTo() // и никаких "execute java script", я не могу нарадоваться :)
-                // пробовал через HEX #4FADFF, пришлось привести к RGBA. Но я проверил, цвета одинаковые.
+                .scrollTo()
                 .shouldHave(Condition.cssValue("background-color", "rgba(79, 173, 255, 1)"));
     }
 
     @Test
     void automationExamplesFormTest() {
-        open(PERFOMANCE_LAB_URL);
-
+        open(PERFORMANCE_LAB_URL);
+        Configuration.timeout=60000;
         $("[id='menu-item-317']")
                 .shouldBe(Condition.visible)
                 .hover();
@@ -72,15 +70,12 @@ public class UiTests {
         $("[class='pdf-block openBrochur']>p>img")
                 .shouldBe(Condition.visible)
                 .click();
-        // Смерть кощея в игле. Игла в яйце.
+        // переключаюсь к нужному фрейму, последовательно.
         switchTo().frame("hubspot-Modal-Iframe");
-        // Яйцо в утке.
         switchTo().frame("hs-form-iframe-0");
-        // Утка в зайце.
         $("[class='hbspt-form']")
-                .shouldBe(Condition.visible);
-        // Где заяц?
-        $("[id^='firstname-ae5']") // Заяц в шоке.
-                .shouldBe(Condition.visible);
+                .shouldBe(Condition.visible); // проверка наличия формы
+        $("[id^='firstname-ae5']")
+                .shouldBe(Condition.visible); // и первого поля
     }
 }
