@@ -1,4 +1,4 @@
-package apitest;
+package ApiTests;
 
 import org.apache.hc.core5.http.*;
 import utils.JDBCRecorder;

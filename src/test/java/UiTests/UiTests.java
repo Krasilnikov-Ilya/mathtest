@@ -1,4 +1,4 @@
-package UiTest;
+package UiTests;
 
 import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.Test;
@@ -7,7 +7,7 @@ import org.openqa.selenium.Keys;
 import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selenide.*;
 
-public class SearchTest {
+public class UiTests {
 
     /**
      * К "ванильному" селениуму я больше возвращаться по своей воле точно не буду.
