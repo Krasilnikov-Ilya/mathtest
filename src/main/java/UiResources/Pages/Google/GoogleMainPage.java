@@ -7,7 +7,7 @@ import org.openqa.selenium.Keys;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.page;
 
-public class GoogleMainPage {
+public class GoogleMainPage extends BasePage {
     public static final String GOOGLE_URL = "https://google.com";
     private final SelenideElement searchFLD = $x("//input[@title='Поиск']");
 

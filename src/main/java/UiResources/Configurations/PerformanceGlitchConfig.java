@@ -12,6 +12,11 @@ public class PerformanceGlitchConfig {
         Configuration.browserSize = "1920x1080";
         //Самое главное отличие - таймауты
         Configuration.timeout = 30000;
+        Configuration.pageLoadTimeout = 30000;
+        //Явно закрываем браузер
+        Configuration.holdBrowserOpen = false;
+        //Ожидание загрузки страницы
+        Configuration.pageLoadStrategy = "normal";
         //Создаём объект класса DesiredCapabilities, используется как настройка конфигурации с помощью пары ключ-значение
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //Включить поддержку отображения экрана браузера во время выполнения теста

@@ -1,9 +1,14 @@
 package UiResources.Pages.BasePage;
-import com.codeborne.selenide.SelenideElement;
-
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.switchTo;
 
 public class BasePage {
+    public static String searchQuery = null;
+    public static String firstResultURL = null;
 
+    public static void setFinderQuery(String query) {
+        searchQuery = query;
+    }
+
+    public static void setFinderURL(String query) {
+        firstResultURL = query;
+    }
 }

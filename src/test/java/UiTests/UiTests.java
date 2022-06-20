@@ -1,6 +1,7 @@
 package UiTests;
 
 import UiResources.Configurations.PerformanceGlitchConfig;
+import UiResources.Pages.BasePage.BasePage;
 import UiResources.Pages.Google.GoogleMainPage;
 import UiResources.Pages.Google.GoogleResultsPage;
 import UiResources.Pages.PerformanceLab.PerfLabAutomationTestingPage;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
+import static UiResources.Pages.BasePage.BasePage.firstResultURL;
+import static UiResources.Pages.BasePage.BasePage.searchQuery;
 import static UiResources.Pages.Google.GoogleMainPage.GOOGLE_URL;
 import static UiResources.Pages.Google.GoogleResultsPage.GOOGLE_SEARCH_RESULT_PERFORMANCE_LAB_URL;
 import static UiResources.Pages.PerformanceLab.PerfLabAutomationTestingPage.PERFORMANCE_LAB_AUTOMATION_TESTING_URL;
@@ -21,6 +24,10 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.open;
 
 public class UiTests {
+    private static final String queryForSearch = "performance lab";
+    private static final String searchResultURL = "https://www.performance-lab.ru";
+    private static final String queryForSearchIZH = "performance lab ижевск";
+    private static final String searchResultURLIZH = "https://www.performance-lab.ru/izhevsk";
 
     @BeforeAll
     public static void setUp() {
@@ -30,16 +37,19 @@ public class UiTests {
     @Test
     void findSiteThroughGoogleTest() {
         //Steps
+        BasePage.setFinderQuery(queryForSearch);
+        BasePage.setFinderURL(searchResultURL);
         GoogleMainPage googleMainPage = open(GOOGLE_URL, GoogleMainPage.class);
-        GoogleResultsPage googleResultsPagePerformanceLab = googleMainPage.search("performance lab");
+        GoogleResultsPage googleResultsPagePerformanceLab = googleMainPage.search(searchQuery);
         //Tests
         googleResultsPagePerformanceLab.getFirstResult().shouldBe(Condition.visible)
-                .shouldHave(Condition.href("https://www.performance-lab.ru/"));
+                .shouldHave(Condition.href(firstResultURL));
     }
 
     @Test
     void enterSiteThroughGoogleResultsPageTest() {
         //Steps
+        BasePage.setFinderQuery(queryForSearch);
         GoogleResultsPage googleResultsPagePerformanceLab = open(GOOGLE_SEARCH_RESULT_PERFORMANCE_LAB_URL, GoogleResultsPage.class);
         PerfLabMainPage perfLabMainPage = googleResultsPagePerformanceLab.goToPerformanceLabSite();
         perfLabMainPage.removeFuckingBanner();
@@ -48,6 +58,29 @@ public class UiTests {
                 .shouldHave(attribute("title", "Перфоманс Лаб"));
     }
 
+    @Test
+    void findIzhevskSiteThroughGoogleTest() {
+        //Steps
+        BasePage.setFinderQuery(queryForSearchIZH);
+        BasePage.setFinderURL(searchResultURLIZH);
+        GoogleMainPage googleMainPage = open(GOOGLE_URL, GoogleMainPage.class);
+        GoogleResultsPage googleResultsPagePerformanceLab = googleMainPage.search(searchQuery);
+        //Tests
+        googleResultsPagePerformanceLab.getFirstResult().shouldBe(Condition.visible)
+                .shouldHave(Condition.href(firstResultURL));
+    }
+
+    @Test
+    void enterSiteThroughGoogleResultsIzhevskPageTest() {
+        //Steps
+        BasePage.setFinderQuery(queryForSearchIZH);
+        GoogleResultsPage googleResultsPagePerformanceLab = open(GOOGLE_SEARCH_RESULT_PERFORMANCE_LAB_URL, GoogleResultsPage.class);
+        PerfLabMainPage perfLabMainPage = googleResultsPagePerformanceLab.goToPerformanceLabSite();
+        //perfLabMainPage.removeFuckingBanner(); здесь уже не нужен
+        //Tests
+        perfLabMainPage.getLogo().shouldBe(Condition.visible)
+                .shouldHave(attribute("title", "Перфоманс Лаб"));
+    }
 
     @Test
     void goFromPerformanceLabMainPageToWebsiteTestingPageTest() {
