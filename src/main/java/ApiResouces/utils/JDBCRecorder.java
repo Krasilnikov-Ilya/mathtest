@@ -1,6 +1,6 @@
-package utils;
+package ApiResouces.utils;
 
-import models.User;
+import ApiResouces.models.User;
 
 import java.sql.*;
 import java.util.*;

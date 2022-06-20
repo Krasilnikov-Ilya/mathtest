@@ -1,14 +1,14 @@
 package ApiTests;
 
 import org.apache.hc.core5.http.*;
-import utils.JDBCRecorder;
-import utils.ApacheHttp5;
-import utils.JsonRecorder;
+import ApiResouces.utils.JDBCRecorder;
+import ApiResouces.utils.ApacheHttp5;
+import ApiResouces.utils.JsonRecorder;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import models.User;
+import ApiResouces.models.User;
 
 
 import java.io.*;

@@ -5,13 +5,13 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
+import static UiResources.Pages.Google.GoogleMainPage.GOOGLE_URL;
+import static UiResources.Pages.PerformanceLab.PerfLabMainPage.PERFORMANCE_LAB_URL;
+
 import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selenide.*;
 
-public class UiTests {
-
-    private static final String PERFORMANCE_LAB_URL = "https://www.performance-lab.ru/";
-    private static final String GOOGLE_URL = "https://google.com";
+public class UiSimpleTests {
 
     @Test
     void findAndEnterSiteThroughGoogleTest() {
@@ -35,13 +35,13 @@ public class UiTests {
     }
 
     @Test
-    void siteTestingPriceColorTest() {
+    void websiteTestingPriceColorTest() {
         open(PERFORMANCE_LAB_URL);
         Configuration.timeout=60000;
-        $("[id='menu-item-317']")
+        $x("//li[@id='menu-item-317']")
                 .shouldBe(Condition.visible)
                 .hover();
-        $("[class='container']>*>*>[class*='menu-item-8248']>a")
+        $x("//li[@id='menu-item-141']/a[text()='Автоматизация тестирования']")
                 .shouldBe(Condition.visible)
                 .click();
 
@@ -59,10 +59,10 @@ public class UiTests {
     void automationExamplesFormTest() {
         open(PERFORMANCE_LAB_URL);
         Configuration.timeout=60000;
-        $("[id='menu-item-317']")
+        $x("//li[@id='menu-item-317']")
                 .shouldBe(Condition.visible)
                 .hover();
-        $("[class='container']>*>*>[class*='menu-item-141']>a")
+        $x("//div[@class='container']/*/*/*/a[text()='Автоматизация тестирования']")
                 .click();
         //Вообще, есть у сайта странности. С одной ссылки в новую вкладку кинет, с другой - откроет в текущей.
         $("[class='col-12']>h3[style='text-align: center;']")
@@ -78,4 +78,5 @@ public class UiTests {
         $("[id^='firstname-ae5']")
                 .shouldBe(Condition.visible); // и первого поля
     }
+
 }

@@ -1,4 +1,4 @@
-package models;
+package ApiResouces.models;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package utils;
+package ApiResouces.utils;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
