@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.page;
 
 public class GoogleMainPage {
     public static final String GOOGLE_URL = "https://google.com";
-    private static SelenideElement searchFLD = $x("//input[@title='Поиск']");
+    private final SelenideElement searchFLD = $x("//input[@title='Поиск']");
 
     public GoogleResultsPage search(String query) {
         searchFLD.sendKeys(query + Keys.ENTER);

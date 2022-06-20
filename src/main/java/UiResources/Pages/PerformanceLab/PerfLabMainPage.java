@@ -22,11 +22,11 @@ import static com.codeborne.selenide.Selenide.*;
 public class PerfLabMainPage extends BasePage {
     public static final String PERFORMANCE_LAB_URL = "https://www.performance-lab.ru/";
 
-    private static SelenideElement logo = $x("//a[@class='navbar-brand logo']");
-    private static SelenideElement productsAndServicesLi = $x("//li[@id='menu-item-317']");
-    private static SelenideElement websiteTesting = $x("//div[@id='nav_top']//a[text() = 'Тестирование сайта']");
-    private static SelenideElement automationTesting = $x("//*[@id='nav_top']//a[text()='Автоматизация тестирования']");
-    private static SelenideElement bannerHost = $x("//div[@data-gr='popup-container']");
+    private final SelenideElement logo = $x("//a[@class='navbar-brand logo']");
+    private final SelenideElement productsAndServicesLi = $x("//li[@id='menu-item-317']");
+    private final SelenideElement websiteTesting = $x("//div[@id='nav_top']//a[text() = 'Тестирование сайта']");
+    private final SelenideElement automationTesting = $x("//*[@id='nav_top']//a[text()='Автоматизация тестирования']");
+    private final SelenideElement bannerHost = $x("//div[@data-gr='popup-container']");
 
     public void removeFuckingBanner() {
         executeJavaScript("""

@@ -10,8 +10,8 @@ import static com.codeborne.selenide.Selenide.switchTo;
 public class PerfLabWebsiteTestingPage extends BasePage {
     public static final String PERFORMANCE_LAB_WEBSITE_TESTING_PAGE_URL = PERFORMANCE_LAB_URL + "/website-testing";
 
-    private static SelenideElement mainWebsiteTestingPageText = $x("//div[@class='elementor-section-wrap']//h1");
-    private static SelenideElement findOutThePriceButtonFLD = $x("//div[@data-id='5d071489']//a[contains(@class, 'elementor-button-link')]");
+    private final SelenideElement mainWebsiteTestingPageText = $x("//div[@class='elementor-section-wrap']//h1");
+    private final SelenideElement findOutThePriceButtonFLD = $x("//div[@data-id='5d071489']//a[contains(@class, 'elementor-button-link')]");
 
     public SelenideElement getMainWebsiteTestingPageText() {
         return mainWebsiteTestingPageText;
