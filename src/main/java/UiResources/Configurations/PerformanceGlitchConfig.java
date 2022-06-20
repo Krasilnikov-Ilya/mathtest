@@ -17,6 +17,8 @@ public class PerformanceGlitchConfig {
         Configuration.holdBrowserOpen = false;
         //Ожидание загрузки страницы
         Configuration.pageLoadStrategy = "normal";
+        //Папка для репортов отправляется в target, что бы не копить мусор.
+        Configuration.reportsFolder = "target/test-result/reports";
         //Создаём объект класса DesiredCapabilities, используется как настройка конфигурации с помощью пары ключ-значение
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //Включить поддержку отображения экрана браузера во время выполнения теста

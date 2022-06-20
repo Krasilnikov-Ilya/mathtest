@@ -1,6 +1,6 @@
 package UiResources.Pages.PerformanceLab;
 
-import UiResources.Pages.BasePage.BasePage;
+
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
@@ -8,8 +8,7 @@ import static UiResources.Pages.PerformanceLab.PerfLabMainPage.PERFORMANCE_LAB_U
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.switchTo;
 
-public class PerfLabAutomationTestingPage extends BasePage {
-    public static final String PERFORMANCE_LAB_AUTOMATION_TESTING_URL = PERFORMANCE_LAB_URL + "avtomatizacija-testirovanija";
+public class PerfLabAutomationTestingPage {
     public static final String HUBSPOT_MODAL_IFRAME = "hubspot-Modal-Iframe";
     public static final String FORM_0_IFRAME = "hs-form-iframe-0";
     private final SelenideElement mainAutomationTestingText = $x("//div[@class='single-page']//h1");
@@ -17,10 +16,6 @@ public class PerfLabAutomationTestingPage extends BasePage {
     private final SelenideElement examplePdfIMG = $x("//img[@alt='автоматизация тестирования']");
     private final SelenideElement contactFormFRM = $x("//div[@class='hbspt-form']");
     private final SelenideElement contactFormFirstNameFLD = $x("//input[starts-with(@id, 'firstname-ae5')]");
-
-    public SelenideElement getMainAutomationTestingText() {
-        return mainAutomationTestingText;
-    }
 
     public SelenideElement getExamplesOfCompletedProjectsTXT() {
         return examplesOfCompletedProjectsTXT;
