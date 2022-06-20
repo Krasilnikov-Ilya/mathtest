@@ -9,10 +9,6 @@ public class GoogleResultsPage {
 
     private final SelenideElement firstResultLNK = $x("(//div[@class='g']//div[@class='yuRUbf']/a)[1]");
 
-    public SelenideElement getFirstResult() {
-        return firstResultLNK;
-    }
-
     public PerfLabMainPage goToPerformanceLabSite() {
         firstResultLNK.click();
         return page(PerfLabMainPage.class);

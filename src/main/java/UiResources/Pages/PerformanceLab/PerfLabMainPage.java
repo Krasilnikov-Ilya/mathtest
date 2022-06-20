@@ -8,7 +8,6 @@ import static com.codeborne.selenide.Selenide.*;
 public class PerfLabMainPage {
     public static final String PERFORMANCE_LAB_URL = "https://www.performance-lab.ru/";
 
-    private final SelenideElement logo = $x("//a[@class='navbar-brand logo']");
     private final SelenideElement productsAndServicesLi = $x("//li[@id='menu-item-317']");
     private final SelenideElement websiteTesting = $x("//div[@id='nav_top']//a[text() = 'Тестирование сайта']");
     private final SelenideElement automationTesting = $x("//*[@id='nav_top']//a[text()='Автоматизация тестирования']");
@@ -19,10 +18,6 @@ public class PerfLabMainPage {
             var element = arguments[0];
             element.parentNode.removeChild(element);
             """, bannerHost); // надеюсь, больше не увидимся.
-    }
-
-    public SelenideElement getLogo() {
-        return logo;
     }
 
     public SelenideElement getProductsAndServicesLi() {
