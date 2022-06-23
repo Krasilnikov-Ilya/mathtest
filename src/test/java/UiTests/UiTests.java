@@ -1,6 +1,7 @@
 package UiTests;
 
-import UiResources.Configurations.PerformanceGlitchConfig;
+import UiResources.Configuration.ConfProperties;
+import UiResources.Configuration.Config;
 import UiResources.Pages.Google.GoogleMainPage;
 import UiResources.Pages.Google.GoogleResultsPage;
 import UiResources.Pages.PerformanceLab.PerfLabAutomationTestingPage;
@@ -10,54 +11,84 @@ import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static UiResources.Pages.Google.GoogleMainPage.GOOGLE_URL;
-import static UiResources.Pages.PerformanceLab.PerfLabMainPage.PERFORMANCE_LAB_URL;
 import static com.codeborne.selenide.Selenide.open;
+import static io.qameta.allure.Allure.step;
+
+/**
+ * Реализованные на selenide тесты могут исполняться с разными настройками
+ * Для установки настроек используется метод setUp() класса Config
+ * Настройки хранятся в файле src/test/resources/conf.properties
+ * Адреса доменов тестируемых сайтов так же хранятся в файле настроек
+ */
 
 public class UiTests {
     @BeforeAll
     public static void setUp() {
-        PerformanceGlitchConfig.setUp();
+        Config.setUp();
     }
 
     @Test
     void googleToMainToProductsBlueBTNTest() {
-        GoogleMainPage googleMainPage = open(GOOGLE_URL, GoogleMainPage.class);
 
+        // открытие браузера, получение главной страницы поисковой системы Google
+        GoogleMainPage googleMainPage = open(ConfProperties.getProperty("GOOGLE_URL"), GoogleMainPage.class);
+
+        // осуществление поискового запроса и переход на первую страницу результатов поиска
         GoogleResultsPage googleResultsPagePerformanceLab = googleMainPage.search("performance lab");
 
+        // переход на главную страницу сайта Performance Lab по ссылке из первого результата поиска
         PerfLabMainPage perfLabMainPage = googleResultsPagePerformanceLab.goToPerformanceLabSite();
 
-        perfLabMainPage.removeBanner();
+        // ожидание появления баннера и его удаление
+        step("Удаление баннера", perfLabMainPage::removeBanner);
 
+        // открытие подменю "Услуги и продукты"
         perfLabMainPage.getProductsAndServicesLi().hover();
 
+        // переход на страницу "Тестирование сайта"
         PerfLabWebsiteTestingPage perfLabWebsiteTestingPage = perfLabMainPage.goToWebsiteTesting();
 
-        perfLabWebsiteTestingPage.getFindOutThePriceButtonFLD().scrollTo();
+        step("Проверка цвета кнопки 'Узнать цену' в колонке корпоративного тарифного плана", () -> {
+            // прокрутка страницы до кнопки "Узнать цену" в колонке корпоративного тарифного плана
+            perfLabWebsiteTestingPage.getFindOutThePriceButtonFLD().scrollTo();
 
-        perfLabWebsiteTestingPage.getFindOutThePriceButtonFLD()
-                .shouldHave(Condition.cssValue("background-color", "rgba(79, 173, 255, 1)"));
+            // проверка фонового цвета кнопки "Узнать цену" в колонке корпоративного тарифного плана
+            perfLabWebsiteTestingPage.getFindOutThePriceButtonFLD()
+                    .shouldHave(Condition.cssValue("background-color", "rgba(79, 173, 255, 1)"));
+        });
     }
 
     @Test
     void mainToAutomationFormTest() {
-        PerfLabMainPage perfLabMainPage = open(PERFORMANCE_LAB_URL, PerfLabMainPage.class);
 
-        perfLabMainPage.removeBanner();
+        // открытие браузера, получение главной страницы сайта "Performance Lab"
+        PerfLabMainPage perfLabMainPage = open(ConfProperties.getProperty("PERFORMANCE_LAB_URL"), PerfLabMainPage.class);
 
+        // ожидание появления баннера и его удаление
+        step("Удаление баннера", perfLabMainPage::removeBanner);
+
+        // открытие подменю "Услуги и продукты"
         perfLabMainPage.getProductsAndServicesLi().hover();
 
+        // переход на страницу "Автоматизация тестирования"
         PerfLabAutomationTestingPage perfLabAutomationTestingPage = perfLabMainPage.goToAutomationTesting();
 
-        perfLabAutomationTestingPage.getExamplesOfCompletedProjectsTXT().scrollTo();
+        step("Проверка вызова заполняемой формы", () -> {
+            // прокрутка страницы до заголовка "Примеры выполненных проектов" над изображением, вызывающим заполняемую форму
+            perfLabAutomationTestingPage.getExamplesOfCompletedProjectsTXT().scrollTo();
 
-        perfLabAutomationTestingPage.getExamplePdfIMG().click();
+            // открытие заполняемой формы через клик по изображению
+            perfLabAutomationTestingPage.getExamplePdfIMG().click();
 
-        perfLabAutomationTestingPage.goToFormIFrame();
+            // переключение на заполняемую форму
+            perfLabAutomationTestingPage.goToFormIFrame();
 
-        perfLabAutomationTestingPage.getContactFormFRM().shouldBe(Condition.visible);
+            // проверка видимости контейнера заполняемой формы
+            perfLabAutomationTestingPage.getContactFormFRM().shouldBe(Condition.visible);
 
-        perfLabAutomationTestingPage.getContactFormFirstNameFLD().shouldBe(Condition.visible);
+            // проверка видимости поля "Имя" заполняемой формы
+            perfLabAutomationTestingPage.getContactFormFirstNameFLD().shouldBe(Condition.visible);
+        });
     }
+
 }

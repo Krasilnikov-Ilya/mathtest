@@ -32,8 +32,6 @@ class ApiTest {
     public void apiAndSqlTest() throws IOException, ParseException {
         List<User> usersPageRootAPI = JsonRecorder.saveJson();
         List<User> usersPageRootSQL = JDBCRecorder.recordListFromJDBC();
-        // идея ругалась на возможное возникновение ошибки NullPointerException, пришлось добавить
-        Assertions.assertTrue((usersPageRootAPI != null) && (usersPageRootSQL != null));
         Assertions.assertEquals(usersPageRootAPI.size(), usersPageRootSQL.size());
         Assertions.assertTrue(usersPageRootAPI.containsAll(usersPageRootSQL));
         Assertions.assertTrue(usersPageRootSQL.containsAll(usersPageRootAPI));

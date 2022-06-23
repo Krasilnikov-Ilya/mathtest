@@ -1,17 +1,19 @@
 package UiResources.Pages.Google;
 
-import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.page;
 
-public class GoogleMainPage {
-    public static final String GOOGLE_URL = "https://google.com";
-    private final SelenideElement searchFLD = $x("//input[@title='Поиск']");
+/**
+ * Класс с методами главной страницы поисковой системы Google
+ */
 
+public class GoogleMainPage {
+
+    // метод, возвращающий страницу результатов поиска используя переданный текст запроса.
     public GoogleResultsPage search(String query) {
-        searchFLD.sendKeys(query + Keys.ENTER);
+        $x("//input[@title='Поиск']").sendKeys(query + Keys.ENTER);
         return page(GoogleResultsPage.class);
     }
 
