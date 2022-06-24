@@ -5,31 +5,31 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 /**
  * Данный класс отвечает за установку настроек selenide
- * Метод setUp() использует значения, получаемые от ConfProperties
+ * Метод setUp() использует значения, получаемые от UiConfProperties
  */
 
-public class Config {
-    public static void setUp() {
+public class UiConfig {
+    public static void UiSetUp() {
         // определение используемого браузера
-        Configuration.browser = ConfProperties.getProperty("browser");
+        Configuration.browser = UiConfProperties.getProperty("browser");
         // определение режима работы браузера
-        Configuration.headless = Boolean.parseBoolean(ConfProperties.getProperty("headless"));
+        Configuration.headless = Boolean.parseBoolean(UiConfProperties.getProperty("headless"));
         // определение размера окна браузера
-        Configuration.browserSize = ConfProperties.getProperty("browserSize");
+        Configuration.browserSize = UiConfProperties.getProperty("browserSize");
         // определение лимита времени явного ожидания
-        Configuration.timeout = Long.parseLong(ConfProperties.getProperty("timeout"));
+        Configuration.timeout = Long.parseLong(UiConfProperties.getProperty("timeout"));
         // определение времени ожидания загрузки страницы
-        Configuration.pageLoadTimeout = Long.parseLong(ConfProperties.getProperty("pageLoadTimeout"));
+        Configuration.pageLoadTimeout = Long.parseLong(UiConfProperties.getProperty("pageLoadTimeout"));
         // определение действия браузера по завершению теста
-        Configuration.holdBrowserOpen = Boolean.parseBoolean(ConfProperties.getProperty("holdBrowserOpen"));
+        Configuration.holdBrowserOpen = Boolean.parseBoolean(UiConfProperties.getProperty("holdBrowserOpen"));
         // определение стратегии загрузки страницы
-        Configuration.pageLoadStrategy = ConfProperties.getProperty("pageLoadStrategy");
+        Configuration.pageLoadStrategy = UiConfProperties.getProperty("pageLoadStrategy");
         // определение папки для сохранения репортов
-        Configuration.reportsFolder = ConfProperties.getProperty("reportsFolder");
+        Configuration.reportsFolder = UiConfProperties.getProperty("reportsFolder");
 
         // получение настроек конфигурации для пар ключ-значение
-        Boolean VNC = Boolean.valueOf(ConfProperties.getProperty("VNC"));
-        Boolean Video = Boolean.valueOf(ConfProperties.getProperty("Video"));
+        Boolean VNC = Boolean.valueOf(UiConfProperties.getProperty("VNC"));
+        Boolean Video = Boolean.valueOf(UiConfProperties.getProperty("Video"));
 
         // создание объекта класса DesiredCapabilities
         DesiredCapabilities capabilities = new DesiredCapabilities();

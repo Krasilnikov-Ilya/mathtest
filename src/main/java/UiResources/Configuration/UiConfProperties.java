@@ -10,7 +10,7 @@ import java.util.Properties;
  * И передачу их значений другим классам.
  */
 
-public class ConfProperties {
+public class UiConfProperties {
     protected static FileInputStream fileInputStream;
     protected static Properties PROPERTIES;
     static {

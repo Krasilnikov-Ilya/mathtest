@@ -1,39 +1,145 @@
 package ApiTests;
 
+import ApiResources.Configuration.ApiConfProperties;
+import ApiResources.HttpUtils.*;
+import ApiResources.JdbcUtils.*;
 import org.apache.hc.core5.http.*;
-import ApiResouces.utils.JDBCRecorder;
-import ApiResouces.utils.ApacheHttp5;
-import ApiResouces.utils.JsonRecorder;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import ApiResouces.models.User;
+import ApiResources.Models.User;
 
 
-import java.io.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
+import static io.qameta.allure.Allure.step;
+
 class ApiTest {
+
     @Test
-    public void usersTest() throws IOException, ProtocolException {
-        CloseableHttpClient client = ApacheHttp5.createClient(); // создание клиента
-        ClassicHttpRequest getUsersJson = ApacheHttp5.createGetWithHeader(); // создание запроса
-        CloseableHttpResponse response = client.execute(getUsersJson); // объявление и инициализация ответа
-        Assertions.assertEquals(200, response.getCode()); // проверка на код ответа
-        Assertions.assertEquals("Content-Type: application/json",
-                response.getHeader(HttpHeaders.CONTENT_TYPE).toString());// проверка хедера ответа
-        HttpEntity entity = response.getEntity(); // объявление и инициализация содержимого
-        Assertions.assertNotNull(entity); // проверка существования содержимого
-        client.close(); // закрытие клиента
+    public void usersApiTest() {
+
+        // создание клиента
+        CloseableHttpClient client = ClientUtils.createClient();
+        // создание запроса
+        ClassicHttpRequest request = RequestUtils.createHTTPGet(ApiConfProperties.getProperty("API_HOST"),"/users");
+        // добавление хедера Content-Type: Json к запросу
+        RequestUtils.addHeaderContentTypeJson(request);
+        // объявление и инициализация ответа сервера
+        CloseableHttpResponse response = ResponseUtils.executeRequest(client, request);
+
+        step("проверка ответа сервера", () -> {
+            // проверка кода ответа сервера
+            Assertions.assertEquals(200, response.getCode());
+
+            // проверка хэдера типа данных в ответе сервера
+            Assertions.assertEquals("Content-Type: application/json", response.getHeader(HttpHeaders.CONTENT_TYPE).toString());
+        });
+
+        // получение тела ответа сервера
+        HttpEntity entity = EntityUtils.createHttpEntity(response);
+
+        // создание списка пользователей из тела ответа
+        List<User> usersPageRootAPI = UsersListGsonCreater.createUsersListWithGson(entity);
+
+        step("проверка наличия пользователей в списке пользователей API", () -> {
+            // проверка наличия пользователей в списке
+            Assertions.assertNotEquals(usersPageRootAPI.size(), 0);
+        });
+
+        // закрытие тела ответа сервера
+        ResponseUtils.closeResponse(response);
+        // закрытие ответа сервера
+        EntityUtils.closeEntity(entity);
+        // закрытие клиента
+        ClientUtils.closeClient(client);
+
     }
 
     @Test
-    public void apiAndSqlTest() throws IOException, ParseException {
-        List<User> usersPageRootAPI = JsonRecorder.saveJson();
-        List<User> usersPageRootSQL = JDBCRecorder.recordListFromJDBC();
-        Assertions.assertEquals(usersPageRootAPI.size(), usersPageRootSQL.size());
-        Assertions.assertTrue(usersPageRootAPI.containsAll(usersPageRootSQL));
-        Assertions.assertTrue(usersPageRootSQL.containsAll(usersPageRootAPI));
+    public void usersSqlTest() {
+
+        // создание подключения
+        Connection connection = ConnectionUtils.createJdbcConnection(ApiConfProperties.getProperty("JDBC_HOST") + "/pflb_trainingcenter",
+                ApiConfProperties.getProperty("JDBC_NAME"), ApiConfProperties.getProperty("JDBC_PASSWORD"));
+        // создание выражения
+        Statement statement = StatementUtils.createStatement(connection);
+        // создание результата запроса
+        ResultSet resultSet = ResultUtils.getResultSet(statement,
+                "SELECT * FROM person");
+
+        // создание списка пользователей из результата запроса
+        List<User> usersPageRootSQL = UsersListCreater.createUsersList(resultSet);
+
+        step("проверка наличия пользователей в списке пользователей SQL", () -> {
+            // проверка наличия пользователей в списке
+            Assertions.assertNotEquals(usersPageRootSQL.size(), 0);
+        });
+
+        // закрытие результата запроса
+        ResultUtils.closeResultSet(resultSet);
+        // закрытие выражения
+        StatementUtils.closeStatement(statement);
+        // закрытие подключения
+        ConnectionUtils.closeJdbcConnection(connection);
     }
+
+
+
+    @Test
+    public void apiAndSqlTest() {
+
+        // создание подключения
+        Connection connection = ConnectionUtils.createJdbcConnection(ApiConfProperties.getProperty("JDBC_HOST") + "/pflb_trainingcenter",
+                ApiConfProperties.getProperty("JDBC_NAME"), ApiConfProperties.getProperty("JDBC_PASSWORD"));
+        // создание выражения
+        Statement statement = StatementUtils.createStatement(connection);
+        // создание результата запроса
+        ResultSet resultSet = ResultUtils.getResultSet(statement,
+                "SELECT * FROM person");
+        // создание списка пользователей из результата запроса
+        List<User> usersPageRootSQL = UsersListCreater.createUsersList(resultSet);
+        // закрытие результата запроса
+        ResultUtils.closeResultSet(resultSet);
+        // закрытие выражения
+        StatementUtils.closeStatement(statement);
+        // закрытие подключения
+        ConnectionUtils.closeJdbcConnection(connection);
+
+        // создание клиента
+        CloseableHttpClient client = ClientUtils.createClient();
+        // создание запроса
+        ClassicHttpRequest request = RequestUtils.createHTTPGet(ApiConfProperties.getProperty("API_HOST"),"/users");
+        // добавление хедера Content-Type: Json к запросу
+        RequestUtils.addHeaderContentTypeJson(request);
+        // объявление и инициализация ответа сервера
+        CloseableHttpResponse response = ResponseUtils.executeRequest(client, request);
+        // получение тела ответа сервера
+        HttpEntity entity = EntityUtils.createHttpEntity(response);
+        // создание списка пользователей из тела ответа
+        List<User> usersPageRootAPI = UsersListGsonCreater.createUsersListWithGson(entity);
+        // закрытие тела ответа сервера
+        ResponseUtils.closeResponse(response);
+        // закрытие ответа сервера
+        EntityUtils.closeEntity(entity);
+        // закрытие клиента
+        ClientUtils.closeClient(client);
+
+
+        step("Проверка идентичности списков пользователей, полученных из API и SQL",() -> {
+            // проверка соответствия размеров списков пользователей, полученных из API и SQL
+            Assertions.assertEquals(usersPageRootAPI.size(), usersPageRootSQL.size());
+
+            // проверка идентичности списков пользователей, полученных из API и SQL
+            Assertions.assertTrue(usersPageRootAPI.containsAll(usersPageRootSQL));
+            Assertions.assertTrue(usersPageRootSQL.containsAll(usersPageRootAPI));
+        });
+
+    }
+
 }
