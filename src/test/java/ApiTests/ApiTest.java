@@ -6,7 +6,6 @@ import ApiResources.JdbcUtils.*;
 import org.apache.hc.core5.http.*;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ApiResources.Models.User;
@@ -74,7 +73,7 @@ class ApiTest {
                 "SELECT * FROM person");
 
         // создание списка пользователей из результата запроса
-        List<User> usersPageRootSQL = UsersListCreater.createUsersList(resultSet);
+        List<User> usersPageRootSQL = UsersListJdbcCreater.createUsersList(resultSet);
 
         step("проверка наличия пользователей в списке пользователей SQL", () -> {
             // проверка наличия пользователей в списке
@@ -103,7 +102,7 @@ class ApiTest {
         ResultSet resultSet = ResultUtils.getResultSet(statement,
                 "SELECT * FROM person");
         // создание списка пользователей из результата запроса
-        List<User> usersPageRootSQL = UsersListCreater.createUsersList(resultSet);
+        List<User> usersPageRootSQL = UsersListJdbcCreater.createUsersList(resultSet);
         // закрытие результата запроса
         ResultUtils.closeResultSet(resultSet);
         // закрытие выражения

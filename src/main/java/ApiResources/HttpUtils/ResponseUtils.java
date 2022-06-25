@@ -7,12 +7,12 @@ import org.apache.hc.core5.http.ClassicHttpRequest;
 import java.io.IOException;
 
 /**
- * Класс, отвечающий за создание и закрытие тела ответов сервера
+ * Класс, отвечающий за создание и закрытие ответов сервера
  */
 
 public class ResponseUtils {
 
-    // метод создания тела ответа сервера
+    // метод создания ответа сервера
     public static CloseableHttpResponse executeRequest(CloseableHttpClient client, ClassicHttpRequest request) {
         CloseableHttpResponse response;
         try {
@@ -23,7 +23,7 @@ public class ResponseUtils {
         return response;
     }
 
-    // метод закрытия тела ответа сервера
+    // метод закрытия ответа сервера
     public static void closeResponse(CloseableHttpResponse response) {
         try {
             response.close();

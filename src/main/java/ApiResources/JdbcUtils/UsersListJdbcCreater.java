@@ -11,7 +11,7 @@ import java.util.List;
  * Класс, отвечающий за создание списка пользователей из результирующего набора данных
  */
 
-public class UsersListCreater {
+public class UsersListJdbcCreater {
 
     // метод для создания списка пользователей из результирующего набора данных
     public static List<User> createUsersList(ResultSet resultSet) {
