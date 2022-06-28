@@ -26,7 +26,7 @@ class ApiTest {
         // создание клиента
         CloseableHttpClient client = ClientUtils.createClient();
         // создание запроса
-        ClassicHttpRequest request = RequestUtils.createHTTPGet(ConfProperties.getProperty("API_HOST"),"/users");
+        ClassicHttpRequest request = RequestUtils.createHTTPGet(ConfProperties.getProperty("API_HOST")+ConfProperties.getProperty("API_PORT"),"/users");
         // добавление хедера Content-Type: Json к запросу
         RequestUtils.addHeaderContentTypeJson(request);
         // объявление и инициализация ответа сервера
@@ -64,8 +64,11 @@ class ApiTest {
     public void usersSqlTest() {
 
         // создание подключения
-        Connection connection = ConnectionUtils.createJdbcConnection(ConfProperties.getProperty("JDBC_HOST") + "/pflb_trainingcenter",
-                ConfProperties.getProperty("JDBC_NAME"), ConfProperties.getProperty("JDBC_PASSWORD"));
+        Connection connection = ConnectionUtils.createJdbcConnection(
+                ConfProperties.getProperty("JDBC_HOST") + ConfProperties.getProperty("JDBC_PORT") + "/pflb_trainingcenter",
+                ConfProperties.getProperty("JDBC_NAME"),
+                ConfProperties.getProperty("JDBC_PASSWORD"));
+
         // создание выражения
         Statement statement = StatementUtils.createStatement(connection);
         // создание результата запроса
@@ -94,8 +97,10 @@ class ApiTest {
     public void apiAndSqlTest() {
 
         // создание подключения
-        Connection connection = ConnectionUtils.createJdbcConnection(ConfProperties.getProperty("JDBC_HOST") + "/pflb_trainingcenter",
-                ConfProperties.getProperty("JDBC_NAME"), ConfProperties.getProperty("JDBC_PASSWORD"));
+        Connection connection = ConnectionUtils.createJdbcConnection(
+                ConfProperties.getProperty("JDBC_HOST") + ConfProperties.getProperty("JDBC_PORT") + "/pflb_trainingcenter",
+                ConfProperties.getProperty("JDBC_NAME"),
+                ConfProperties.getProperty("JDBC_PASSWORD"));
         // создание выражения
         Statement statement = StatementUtils.createStatement(connection);
         // создание результата запроса
@@ -113,7 +118,7 @@ class ApiTest {
         // создание клиента
         CloseableHttpClient client = ClientUtils.createClient();
         // создание запроса
-        ClassicHttpRequest request = RequestUtils.createHTTPGet(ConfProperties.getProperty("API_HOST"),"/users");
+        ClassicHttpRequest request = RequestUtils.createHTTPGet(ConfProperties.getProperty("API_HOST")+ConfProperties.getProperty("API_PORT"),"/users");
         // добавление хедера Content-Type: Json к запросу
         RequestUtils.addHeaderContentTypeJson(request);
         // объявление и инициализация ответа сервера
