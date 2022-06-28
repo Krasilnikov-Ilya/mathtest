@@ -36,9 +36,8 @@ public class PerformanceLabJdbc {
         resultSetJsonWrapper.getColumnCount(); // получение количества колонок
         resultSetJsonWrapper.getColNames(); // получение имён колонок
         resultSetJsonWrapper.convertResultSetToJsonArray(); // создание массива Json
-        resultSetJsonWrapper.convertJsonArrayToString(); // конвертация в String для обработки
-        // замена названий полей имени и фамилии, замена пола на "MALE"/"FEMALE"
-        resultSetJsonWrapper.replaceUserColumnsInString();
+        resultSetJsonWrapper.convertJsonArrayToString(); // конвертация в String
+
         // создание списка с использованием класса, переданного тестом
         List<T> userListSQL = resultSetJsonWrapper.getListOfGenericTypeFromString(tClass);
 
