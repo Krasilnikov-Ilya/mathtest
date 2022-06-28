@@ -1,4 +1,4 @@
-package ApiResources.Configuration;
+package Configuration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,13 +9,13 @@ import java.util.Properties;
  * Из файла conf.properties
  * И передачу их значений другим классам.
  *
- * Несмотря на идентичность классу UiConfProperties,
+ * Несмотря на идентичность классу ApiConfProperties,
  * Данный класс необходим для возможности реализации
- * Обращения к конкретному файлу настроек бэкэнда
+ * Обращения к конкретному файлу настроек фронтэнда
  * В случае, если реализовано отдельное хранение конфигураций.
  */
 
-public class ApiConfProperties {
+public class ConfProperties {
     protected static FileInputStream fileInputStream;
     protected static Properties PROPERTIES;
     static {

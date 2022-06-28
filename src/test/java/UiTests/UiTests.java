@@ -1,7 +1,7 @@
 package UiTests;
 
-import UiResources.Configuration.UiConfProperties;
-import UiResources.Configuration.UiConfig;
+import Configuration.ConfProperties;
+import Configuration.UiConfig;
 import UiResources.Pages.Google.GoogleMainPage;
 import UiResources.Pages.Google.GoogleResultsPage;
 import UiResources.Pages.PerformanceLab.PerfLabAutomationTestingPage;
@@ -31,7 +31,7 @@ public class UiTests {
     void googleToMainToProductsBlueBTNTest() {
 
         // открытие браузера, получение главной страницы поисковой системы Google
-        GoogleMainPage googleMainPage = open(UiConfProperties.getProperty("GOOGLE_URL"), GoogleMainPage.class);
+        GoogleMainPage googleMainPage = open(ConfProperties.getProperty("GOOGLE_URL"), GoogleMainPage.class);
 
         // осуществление поискового запроса и переход на первую страницу результатов поиска
         GoogleResultsPage googleResultsPagePerformanceLab = googleMainPage.search("performance lab");
@@ -62,7 +62,7 @@ public class UiTests {
     void mainToAutomationFormTest() {
 
         // открытие браузера, получение главной страницы сайта "Performance Lab"
-        PerfLabMainPage perfLabMainPage = open(UiConfProperties.getProperty("PERFORMANCE_LAB_URL"), PerfLabMainPage.class);
+        PerfLabMainPage perfLabMainPage = open(ConfProperties.getProperty("PERFORMANCE_LAB_URL"), PerfLabMainPage.class);
 
         // ожидание появления баннера и его удаление
         step("Удаление баннера", perfLabMainPage::removeBanner);
