@@ -1,6 +1,5 @@
-package ApiResources.JdbcUtilsNew;
+package ApiResources.JdbcUtils;
 
-import ApiResources.Models.User;
 import Configuration.ConfProperties;
 
 import java.sql.Connection;

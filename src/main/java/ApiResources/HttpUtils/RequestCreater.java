@@ -1,4 +1,4 @@
-package ApiResources.HttpUtilsNew;
+package ApiResources.HttpUtils;
 
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.core5.http.ClassicHttpRequest;

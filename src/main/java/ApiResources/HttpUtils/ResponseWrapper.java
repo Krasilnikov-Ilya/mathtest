@@ -1,4 +1,4 @@
-package ApiResources.HttpUtilsNew;
+package ApiResources.HttpUtils;
 
 import com.google.gson.Gson;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;

@@ -1,4 +1,4 @@
-package ApiResources.HttpUtilsNew;
+package ApiResources.HttpUtils;
 
 import java.net.URI;
 import java.net.URISyntaxException;

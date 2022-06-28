@@ -8,10 +8,10 @@ import java.sql.SQLException;
  * Класс, отвечающий за создание и закрытие подключений к SQL базам данных
  */
 
-public class ConnectionUtils {
+public class ConnectionCreater{
 
     // метод для подключения к базе данных
-    public static Connection createJdbcConnection(String url,String name,String password) {
+    public Connection createJdbcConnection(String url, String name, String password) {
         Connection connection;
         try {
             connection = DriverManager.getConnection(url, name, password);
@@ -22,7 +22,7 @@ public class ConnectionUtils {
     }
 
     // метод для закрытия подключения к базе данных
-    public static void closeJdbcConnection(Connection connection) {
+    public void closeJdbcConnection(Connection connection) {
         try {
             connection.close();
         } catch (SQLException e) {

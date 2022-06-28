@@ -1,4 +1,4 @@
-package ApiResources.JdbcUtilsNew;
+package ApiResources.JdbcUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;

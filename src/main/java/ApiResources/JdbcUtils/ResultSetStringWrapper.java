@@ -1,10 +1,9 @@
-package ApiResources.JdbcUtilsNew;
+package ApiResources.JdbcUtils;
 
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.FileReader;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -39,7 +38,7 @@ public class ResultSetStringWrapper {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("MetaData received");
+        //System.out.println("MetaData received");
     }
 
 
@@ -50,7 +49,7 @@ public class ResultSetStringWrapper {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Total columns in result set: " + columnCount);
+        //System.out.println("Total columns in result set: " + columnCount);
     }
 
     // получение названий колонок из характеристик результата запроса
@@ -67,7 +66,7 @@ public class ResultSetStringWrapper {
                     }
                 })
                 .collect(Collectors.toList());
-        System.out.println("Column names in result set: " + colNames);
+        //System.out.println("Column names in result set: " + colNames);
     }
 
     public JSONArray convertResultSetToJsonArray() {
@@ -102,7 +101,7 @@ public class ResultSetStringWrapper {
     // приведение массива к String формату.
     public void convertJsonArrayToString() {
         resultSetString = jsonArray.toString();
-        System.out.println("String Json data: " + resultSetString);
+        //System.out.println("String Json data: " + resultSetString);
     }
 
     // создание результирующего списка для передачи в тест

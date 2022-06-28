@@ -1,4 +1,4 @@
-package ApiResources.HttpUtilsNew;
+package ApiResources.HttpUtils;
 
 import Configuration.ConfProperties;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;

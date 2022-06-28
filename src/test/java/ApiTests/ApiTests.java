@@ -1,7 +1,7 @@
 package ApiTests;
 
-import ApiResources.HttpUtilsNew.PerformanceLabApi;
-import ApiResources.JdbcUtilsNew.PerformanceLabJdbc;
+import ApiResources.HttpUtils.PerformanceLabApi;
+import ApiResources.JdbcUtils.PerformanceLabJdbc;
 import ApiResources.Models.User;
 import Configuration.ConfProperties;
 import org.junit.jupiter.api.Assertions;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 
-public class ApiNewTest {
+public class ApiTests {
 
     @Test
     public void usersApiTest() {

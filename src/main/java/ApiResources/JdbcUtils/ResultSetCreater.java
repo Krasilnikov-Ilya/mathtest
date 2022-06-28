@@ -5,13 +5,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Класс, отвечающий за создание и закрытие результирующих наборов данных
+ * Данный метод отвечает за создание набора данных по результатам запроса
  */
 
-public class ResultUtils {
+public class ResultSetCreater {
 
     // метод для получения результирующего набора данных
-    public static ResultSet getResultSet(Statement statement, String query) {
+    public ResultSet getResultSet(Statement statement, String query) {
         ResultSet resultSet;
         try {
             resultSet = statement.executeQuery(
@@ -23,7 +23,7 @@ public class ResultUtils {
     }
 
     // метод для закрытия результирующего набора данных
-    public static void closeResultSet(ResultSet resultSet) {
+    public void closeResultSet(ResultSet resultSet) {
         try {
             resultSet.close();
         } catch (SQLException e) {
@@ -31,3 +31,4 @@ public class ResultUtils {
         }
     }
 }
+

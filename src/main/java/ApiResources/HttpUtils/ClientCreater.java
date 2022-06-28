@@ -9,15 +9,15 @@ import java.io.IOException;
  * Класс, отвечающий за создание и закрытие HTTP клиентов
  */
 
-public class ClientUtils {
+public class ClientCreater {
 
     // метод создания клиента
-    public static CloseableHttpClient createClient() {
+    public CloseableHttpClient createClient() {
         return HttpClients.createDefault();
     }
 
     // метод закрытия клиента
-    public static void closeClient(CloseableHttpClient client) {
+    public void closeClient(CloseableHttpClient client) {
         try {
             client.close();
         } catch (IOException e) {
