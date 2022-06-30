@@ -10,14 +10,14 @@ import java.util.Objects;
 public class Car {
 
     // переменные для модели автомобиля
-    private int id;
+    private long id;
     private String engineType;
     private String mark;
     private String model;
     private double price;
 
     // модель автомобиля
-    public Car(int id, String engineType,
+    public Car(long id, String engineType,
                String mark, String model,
                double price) {
         this.id = id;
@@ -28,7 +28,7 @@ public class Car {
     }
 
     // набор методов получения переменных
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -62,12 +62,5 @@ public class Car {
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
         return id == car.id && Double.compare(car.price, price) == 0 && Objects.equals(engineType, car.engineType) && Objects.equals( mark, car. mark) && Objects.equals(model, car.model);
-    }
-
-
-    // метод для получения набора хэшкодов переменных автомобиля
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, engineType, mark, model, price);
     }
 }

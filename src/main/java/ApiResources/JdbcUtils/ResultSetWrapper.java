@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
  * Класс сохраняет артефакты обработки запроса в приватных переменных, для независимости от подключения
  */
 
-public class ResultSetStringWrapper {
+public class ResultSetWrapper {
     private ResultSet resultSet;
     private String resultSetString;
     private ResultSetMetaData metaData;

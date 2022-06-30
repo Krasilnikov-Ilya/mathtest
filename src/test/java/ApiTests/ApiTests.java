@@ -17,7 +17,7 @@ public class ApiTests {
     public void usersApiTest() {
         List<User> userListAPI = PerformanceLabApi.getResult("/users", User.class);
 
-        List<User> userListSQL = PerformanceLabJdbc.getResult(ConfProperties.getProperty("SQL_QUERY_USER_BOOLEAN_CONVERTION"), User.class);
+        List<User> userListSQL = PerformanceLabJdbc.getResult(ConfProperties.getProperty("SQL_QUERY_USER_BOOLEAN_CONVERSION"), User.class);
 
         Assertions.assertEquals(userListAPI.size(), userListSQL.size());
 
@@ -27,7 +27,7 @@ public class ApiTests {
     }
 
     @Test
-    public void usersCarTest() {
+    public void carApiTest() {
         List<Car> carListAPI = PerformanceLabApi.getResult("/cars", Car.class);
 
         List<Car> carListSQL = PerformanceLabJdbc.getResult(ConfProperties.getProperty("SQL_QUERY_CAR_WITH_ENGINE_TYPE"), Car.class);

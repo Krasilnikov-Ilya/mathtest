@@ -16,7 +16,7 @@ public class PerformanceLabJdbc {
         ConnectionCreater connectionCreater = new ConnectionCreater();
         StatementCreater statementCreater = new StatementCreater();
         ResultSetCreater resultSetCreater = new ResultSetCreater();
-        ResultSetStringWrapper resultSetJsonWrapper = new ResultSetStringWrapper();
+        ResultSetWrapper resultSetJsonWrapper = new ResultSetWrapper();
 
         // создание подключения, использует данные из conf.properties
         Connection connection = connectionCreater.createJdbcConnection(
@@ -30,7 +30,7 @@ public class PerformanceLabJdbc {
         ResultSet resultSet = resultSetCreater.getResultSet(statement, query);
 
         // Линейная последовательность методов класса resultSetJsonWrapper
-        resultSetJsonWrapper.getResultSet(resultSet); // сохранение результата
+        resultSetJsonWrapper.getResultSet(resultSet); // получение результата
         resultSetJsonWrapper.getMetaData(); // получение информации о результате
         resultSetJsonWrapper.getColumnCount(); // получение количества колонок
         resultSetJsonWrapper.getColNames(); // получение имён колонок

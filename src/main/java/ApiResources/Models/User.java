@@ -10,7 +10,7 @@ import java.util.Objects;
 public class User {
 
     // переменные для модели пользователя
-    private int id;
+    private long id;
     private String firstName;
     private String secondName;
     private int age;
@@ -18,7 +18,7 @@ public class User {
     private double money;
 
     // модель пользователя
-    public User(int id, String firstName,
+    public User(long id, String firstName,
                 String secondName, int age,
                 String sex, double money) {
         this.id = id;
@@ -30,7 +30,7 @@ public class User {
     }
 
     // набор методов получения переменных
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -68,11 +68,5 @@ public class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return id == user.id && age == user.age && Double.compare(user.money, money) == 0 && Objects.equals(firstName, user.firstName) && Objects.equals(secondName, user.secondName) && Objects.equals(sex, user.sex);
-    }
-
-    // метод для получения набора хэшкодов переменных пользователя
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, secondName, age, sex, money);
     }
 }
