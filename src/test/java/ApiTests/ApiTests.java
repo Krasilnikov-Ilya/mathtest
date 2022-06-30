@@ -2,6 +2,7 @@ package ApiTests;
 
 import ApiResources.HttpUtils.PerformanceLabApi;
 import ApiResources.JdbcUtils.PerformanceLabJdbc;
+import ApiResources.Models.Car;
 import ApiResources.Models.User;
 import Configuration.ConfProperties;
 import org.junit.jupiter.api.Assertions;
@@ -14,9 +15,9 @@ public class ApiTests {
 
     @Test
     public void usersApiTest() {
-        List<User> userListAPI = PerformanceLabApi.getUsers("/users", User.class);
+        List<User> userListAPI = PerformanceLabApi.getResult("/users", User.class);
 
-        List<User> userListSQL = PerformanceLabJdbc.getUsers(ConfProperties.getProperty("SQL_QUERY_USER_BOOLEAN_CONVERTION"), User.class);
+        List<User> userListSQL = PerformanceLabJdbc.getResult(ConfProperties.getProperty("SQL_QUERY_USER_BOOLEAN_CONVERTION"), User.class);
 
         Assertions.assertEquals(userListAPI.size(), userListSQL.size());
 
@@ -25,5 +26,16 @@ public class ApiTests {
 
     }
 
+    @Test
+    public void usersCarTest() {
+        List<Car> carListAPI = PerformanceLabApi.getResult("/cars", Car.class);
+
+        List<Car> carListSQL = PerformanceLabJdbc.getResult(ConfProperties.getProperty("SQL_QUERY_CAR_WITH_ENGINE_TYPE"), Car.class);
+
+        Assertions.assertEquals(carListAPI.size(), carListSQL.size());
+
+        Assertions.assertTrue(carListAPI.containsAll(carListSQL));
+        Assertions.assertTrue(carListSQL.containsAll(carListAPI));
+    }
 }
 

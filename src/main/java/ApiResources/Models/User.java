@@ -8,6 +8,7 @@ import java.util.Objects;
  */
 
 public class User {
+
     // переменные для модели пользователя
     private int id;
     private String firstName;
@@ -53,7 +54,7 @@ public class User {
         return money;
     }
 
-    // метод для вывода данных пользователя в String формате
+    // метод для вывода данных в String формате
     @Override
     public String toString() {
         return "\n" + "User { id:" + id + " firstName: " + firstName + " secondName: " + secondName + "\n"

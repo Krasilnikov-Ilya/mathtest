@@ -9,7 +9,7 @@ import java.net.URI;
 import java.util.List;
 
 public class PerformanceLabApi {
-    public static <T> List<T> getUsers(String path, Class tClass) {
+    public static <T> List<T> getResult(String path, Class tClass) {
         ClientCreater clientCreater = new ClientCreater();
         RequestCreater requestCreater = new RequestCreater();
         ResponseCreater responseCreater = new ResponseCreater();

@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public class PerformanceLabJdbc {
-    public static <T> List<T> getUsers(String query, Class  tClass) {
+    public static <T> List<T> getResult(String query, Class  tClass) {
         ConnectionCreater connectionCreater = new ConnectionCreater();
         StatementCreater statementCreater = new StatementCreater();
         ResultSetCreater resultSetCreater = new ResultSetCreater();
