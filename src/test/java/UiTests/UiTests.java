@@ -11,6 +11,7 @@ import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Condition.cssValue;
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
 
@@ -40,7 +41,7 @@ public class UiTests {
         PerfLabMainPage perfLabMainPage = googleResultsPagePerformanceLab.goToPerformanceLabSite();
 
         // ожидание появления баннера и его удаление
-        step("Удаление баннера", perfLabMainPage::removeBanner);
+        //step("Удаление баннера", perfLabMainPage::removeBanner);
 
         // открытие подменю "Услуги и продукты"
         perfLabMainPage.getProductsAndServicesLi().hover();
@@ -54,7 +55,7 @@ public class UiTests {
 
             // проверка фонового цвета кнопки "Узнать цену" в колонке корпоративного тарифного плана
             perfLabWebsiteTestingPage.getFindOutThePriceButtonFLD()
-                    .shouldHave(Condition.cssValue("background-color", "rgba(79, 173, 255, 1)"));
+                    .shouldHave(cssValue("background-color", "rgba(79, 173, 255, 1)"));
         });
     }
 
@@ -65,7 +66,7 @@ public class UiTests {
         PerfLabMainPage perfLabMainPage = open(ConfProperties.getProperty("PERFORMANCE_LAB_URL"), PerfLabMainPage.class);
 
         // ожидание появления баннера и его удаление
-        step("Удаление баннера", perfLabMainPage::removeBanner);
+        //step("Удаление баннера", perfLabMainPage::removeBanner);
 
         // открытие подменю "Услуги и продукты"
         perfLabMainPage.getProductsAndServicesLi().hover();
