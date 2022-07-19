@@ -41,7 +41,7 @@ public class UiTests {
         PerfLabMainPage perfLabMainPage = googleResultsPagePerformanceLab.goToPerformanceLabSite();
 
         // ожидание появления баннера и его удаление
-        //step("Удаление баннера", perfLabMainPage::removeBanner);
+        step("Удаление баннера", perfLabMainPage::removeBanner);
 
         // открытие подменю "Услуги и продукты"
         perfLabMainPage.getProductsAndServicesLi().hover();
@@ -55,7 +55,7 @@ public class UiTests {
 
             // проверка фонового цвета кнопки "Узнать цену" в колонке корпоративного тарифного плана
             perfLabWebsiteTestingPage.getFindOutThePriceButtonFLD()
-                    .shouldHave(cssValue("background-color", "rgba(79, 173, 255, 1)"));
+                    .shouldBe(Condition.or("blue", cssValue("background-color", "rgba(79, 173, 255, 1)"), cssValue("background-color", "rgb(79, 173, 255)")));
         });
     }
 
@@ -66,7 +66,7 @@ public class UiTests {
         PerfLabMainPage perfLabMainPage = open(ConfProperties.getProperty("PERFORMANCE_LAB_URL"), PerfLabMainPage.class);
 
         // ожидание появления баннера и его удаление
-        //step("Удаление баннера", perfLabMainPage::removeBanner);
+        step("Удаление баннера", perfLabMainPage::removeBanner);
 
         // открытие подменю "Услуги и продукты"
         perfLabMainPage.getProductsAndServicesLi().hover();
